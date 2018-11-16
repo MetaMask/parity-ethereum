@@ -174,6 +174,10 @@ build_rpc_trait! {
 		/// Used for submitting mining hashrate.
 		#[rpc(name = "eth_submitHashrate")]
 		fn submit_hashrate(&self, U256, H256) -> Result<bool>;
+
+		/// Returns a Kitsunet slice
+		#[rpc(name = "eth_getSlice")]
+		fn get_slice(&self, String, u8, H256, bool) -> Result<String>;
 	}
 }
 

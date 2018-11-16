@@ -914,4 +914,8 @@ impl<C, SN: ?Sized, S: ?Sized, M, EM, T: StateInfo + 'static> Eth for EthClient<
 	fn compile_solidity(&self, _: String) -> Result<Bytes> {
 		Err(errors::deprecated("Compilation of Solidity via RPC is deprecated".to_string()))
 	}
+
+	fn get_slice(&self, _path: String, _depth: u8, _root: RpcH256, _storage: bool) -> Result<String> {
+		Err(errors::light_unimplemented(None))
+	}
 }
