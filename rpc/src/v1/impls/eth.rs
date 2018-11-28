@@ -916,6 +916,66 @@ impl<C, SN: ?Sized, S: ?Sized, M, EM, T: StateInfo + 'static> Eth for EthClient<
 	}
 
 	fn get_slice(&self, _path: String, _depth: u8, _root: RpcH256, _storage: bool) -> Result<String> {
-		Err(errors::light_unimplemented(None))
+		// check the path parameter
+		// TODO
+
+		// check the depth parameter
+		// TODO
+
+		// prepare the response object
+		// TODO
+
+		// REMINDER
+		// time all operations for metadata purposes!
+
+		// load the trie with the given root
+		// in parity we give the path at the beginning?
+		// do we use iterators in parity?
+		// TODO
+
+		// *** Checkpoint ***
+
+
+use super::TrieMut;
+use super::triedbmut::*;
+use rlp;
+use ethereum_types::H512;
+//
+let mut memdb = MemoryDB::new();
+let mut root = H256::new();
+{
+	let mut t = TrieDBMut::new(&mut memdb, &mut root);
+	t.insert(b"A", b"ABC").unwrap();
+	t.insert(b"B", b"ABCBA").unwrap();
+}
+
+let t = TrieDB::new(&memdb, &root).unwrap();
+//
+// query for an invalid data type to trigger an error
+let q = rlp::decode::<H512>;
+let lookup = Lookup{ db: t.db, query: q, hash: root };
+let query_result = lookup.look_up(NibbleSlice::new(b"A"));
+let expected = Box::new(TrieError::DecoderError(::rlp::DecoderError::RlpIsTooShort));
+assert_eq!(query_result.unwrap_err(), expected);
+
+
+// PLACEHOLDER
+Err(errors::light_unimplemented(None))
+
+
+		// fetch the stem, record it
+		// TODO
+
+		// add the head to the response
+		// TODO
+
+		// fetch the slice, record it
+		// TODO
+
+		// if state, add the evm codes
+		// TODO
+
+		// if state, add the storage roots
+		// TODO
 	}
 }
