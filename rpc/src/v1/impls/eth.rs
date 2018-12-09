@@ -936,27 +936,44 @@ impl<C, SN: ?Sized, S: ?Sized, M, EM, T: StateInfo + 'static> Eth for EthClient<
 		// *** Checkpoint ***
 
 
-use super::TrieMut;
-use super::triedbmut::*;
-use rlp;
-use ethereum_types::H512;
-//
-let mut memdb = MemoryDB::new();
-let mut root = H256::new();
-{
-	let mut t = TrieDBMut::new(&mut memdb, &mut root);
-	t.insert(b"A", b"ABC").unwrap();
-	t.insert(b"B", b"ABCBA").unwrap();
-}
+//use super::TrieMut;
+//use super::triedbmut::*;
+//use rlp;
+//use ethereum_types::H512;
 
-let t = TrieDB::new(&memdb, &root).unwrap();
-//
+// HACK
+// Necesito la base de datos desde donde engancharme
+
+
+let _tmpherman = &self.client.db_as_hash;  // <- conseguirse el puntero a la base de datos
+// let trie = TrieDB::new(self.db.as_hashdb(), &self.root)?;
+/*
+
+		let state = match self.state_at(id) {
+			Some(state) => state,
+			_ => return None,
+		};
+
+		let (root, db) = state.drop();
+		let trie = match self.factories.trie.readonly(db.as_hashdb(), &root) {
+			Ok(trie) => trie,
+			_ => {
+				trace!(target: "fatdb", "list_accounts: Couldn't open the DB");
+				return None;
+			}
+		};
+
+*/
+
+
+//let t = TrieDB::new(&memdb, &root).unwrap();
+
 // query for an invalid data type to trigger an error
-let q = rlp::decode::<H512>;
-let lookup = Lookup{ db: t.db, query: q, hash: root };
-let query_result = lookup.look_up(NibbleSlice::new(b"A"));
-let expected = Box::new(TrieError::DecoderError(::rlp::DecoderError::RlpIsTooShort));
-assert_eq!(query_result.unwrap_err(), expected);
+//let q = rlp::decode::<H512>;
+//let lookup = Lookup{ db: t.db, query: q, hash: root };
+//let query_result = lookup.look_up(NibbleSlice::new(b"A"));
+//let expected = Box::new(TrieError::DecoderError(::rlp::DecoderError::RlpIsTooShort));
+//assert_eq!(query_result.unwrap_err(), expected);
 
 
 // PLACEHOLDER

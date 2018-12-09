@@ -1693,6 +1693,10 @@ impl BlockChainClient for Client {
 		}
 	}
 
+	fn db_as_hash() {
+		println!("Hola")
+	}
+
 	fn list_accounts(&self, id: BlockId, after: Option<&Address>, count: u64) -> Option<Vec<Address>> {
 		if !self.factories.trie.is_fat() {
 			trace!(target: "fatdb", "list_accounts: Not a fat DB");
