@@ -914,4 +914,13 @@ impl<C, SN: ?Sized, S: ?Sized, M, EM, T: StateInfo + 'static> Eth for EthClient<
 	fn compile_solidity(&self, _: String) -> Result<Bytes> {
 		Err(errors::deprecated("Compilation of Solidity via RPC is deprecated".to_string()))
 	}
+
+	fn get_slice(&self, _: String, _: u8, _: RpcH256, _: bool) -> Result<String> {
+
+		// ?
+		let _kitsunet_slice = self.client.get_kitsunet_slice();
+
+		// PLACEHOLDER
+		Err(errors::light_unimplemented(None))
+	}
 }

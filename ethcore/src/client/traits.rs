@@ -387,6 +387,9 @@ pub trait BlockChainClient : Sync + Send + AccountData + BlockChain + CallContra
 
 	/// Get the address of the registry itself.
 	fn registrar_address(&self) -> Option<Address>;
+
+	/// Get a kitsunet slice
+	fn get_kitsunet_slice(&self) -> Option<Address>;
 }
 
 /// Provides `reopen_block` method
