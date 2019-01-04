@@ -878,7 +878,7 @@ impl BlockChainClient for TestBlockChainClient {
 
 	fn registrar_address(&self) -> Option<Address> { None }
 
-	fn get_kitsunet_slice(&self) -> Option<Address> { None }
+	fn get_kitsunet_slice(&self, _: &H256) -> Option<Address> { None }
 }
 
 impl IoClient for TestBlockChainClient {

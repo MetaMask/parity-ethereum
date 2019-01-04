@@ -2097,39 +2097,32 @@ impl BlockChainClient for Client {
 		self.registrar_address.clone()
 	}
 
-	fn get_kitsunet_slice(&self) -> Option<Address> {
+	fn get_kitsunet_slice(&self, root: &H256) -> Option<Address> {
 
-		println!("Acá debería pasar todo!");
-
-
-		// PLACEHOLDER
-		None
-
-		/*
+		// is_fat() determines whether the database allows enumeration of keys
+		// https://github.com/paritytech/patricia-trie/blob/9d9c5027a322a4a95607175098b9fdf3d57c7de8/src/lib.rs#L308
 		if !self.factories.trie.is_fat() {
 			trace!(target: "fatdb", "list_storage: Not a fat DB");
 			return None;
 		}
 
-		let state = match self.state_at(id) {
-			Some(state) => state,
-			_ => return None,
-		};
+		let db = self.state_db.read().boxed_clone();
 
-		let root = match state.storage_root(account) {
-			Ok(Some(root)) => root,
-			_ => return None,
-		};
-
-		let (_, db) = state.drop();
-		let account_db = self.factories.accountdb.readonly(db.as_hashdb(), keccak(account));
-		let trie = match self.factories.trie.readonly(account_db.as_hashdb(), &root) {
+		let trie = match self.factories.trie.readonly(db.as_hashdb(), root) {
 			Ok(trie) => trie,
 			_ => {
 				trace!(target: "fatdb", "list_storage: Couldn't open the DB");
 				return None;
 			}
 		};
+
+		// No se que hacer acá. Imprimo por mientras?
+		println!("{:?}", trie.root()); // <--- Esto me deberia salvar
+
+		// PLACEHOLDER
+		None
+
+		/*
 
 		let mut iter = match trie.iter() {
 			Ok(iter) => iter,

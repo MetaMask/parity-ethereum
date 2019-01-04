@@ -389,7 +389,7 @@ pub trait BlockChainClient : Sync + Send + AccountData + BlockChain + CallContra
 	fn registrar_address(&self) -> Option<Address>;
 
 	/// Get a kitsunet slice
-	fn get_kitsunet_slice(&self) -> Option<Address>;
+	fn get_kitsunet_slice(&self, &H256) -> Option<Address>;
 }
 
 /// Provides `reopen_block` method

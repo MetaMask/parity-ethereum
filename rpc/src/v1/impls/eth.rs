@@ -915,10 +915,13 @@ impl<C, SN: ?Sized, S: ?Sized, M, EM, T: StateInfo + 'static> Eth for EthClient<
 		Err(errors::deprecated("Compilation of Solidity via RPC is deprecated".to_string()))
 	}
 
-	fn get_slice(&self, _: String, _: u8, _: RpcH256, _: bool) -> Result<String> {
+	fn get_slice(&self, _: String, _: u8, root: RpcH256, _: bool) -> Result<String> {
 
 		// ?
-		let _kitsunet_slice = self.client.get_kitsunet_slice();
+		let root: H256 = root.into();
+		let _kitsunet_slice = self.client.get_kitsunet_slice(root);
+
+		// ?
 
 		// PLACEHOLDER
 		Err(errors::light_unimplemented(None))
