@@ -2108,6 +2108,9 @@ impl BlockChainClient for Client {
 
 		let db = self.state_db.read().boxed_clone();
 
+		println!("DEBUG");
+
+
 		let trie = match self.factories.trie.readonly(db.as_hashdb(), root) {
 			Ok(trie) => trie,
 			_ => {

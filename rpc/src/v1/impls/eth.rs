@@ -919,7 +919,7 @@ impl<C, SN: ?Sized, S: ?Sized, M, EM, T: StateInfo + 'static> Eth for EthClient<
 
 		// ?
 		let root: H256 = root.into();
-		let _kitsunet_slice = self.client.get_kitsunet_slice(root);
+		let _kitsunet_slice = self.client.get_kitsunet_slice(&root);
 
 		// ?
 
