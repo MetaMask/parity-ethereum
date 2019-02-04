@@ -47,6 +47,7 @@ use v1::traits::Eth;
 use v1::types::{
 	RichBlock, Block, BlockTransactions, BlockNumber, Bytes, SyncStatus, SyncInfo,
 	Transaction, CallRequest, Index, Filter, Log, Receipt, Work,
+	KsnSlice, KsnSliceMetadata, KsnSliceNodes, KsnSmartContract,
 	H64 as RpcH64, H256 as RpcH256, H160 as RpcH160, U256 as RpcU256, block_number_to_id,
 	U64 as RpcU64,
 };
@@ -911,5 +912,9 @@ impl<C, SN: ?Sized, S: ?Sized, M, EM, T: StateInfo + 'static> Eth for EthClient<
 
 	fn compile_solidity(&self, _: String) -> Result<Bytes> {
 		Err(errors::deprecated("Compilation of Solidity via RPC is deprecated".to_string()))
+	}
+
+	fn get_ksn_slice(&self, _: String, _: u8, _: RpcH256, _: bool) -> Result<Option<KsnSlice>> {
+		Err(errors::light_unimplemented(None))
 	}
 }

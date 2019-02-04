@@ -21,6 +21,7 @@ use jsonrpc_macros::Trailing;
 use v1::types::{RichBlock, BlockNumber, Bytes, CallRequest, Filter, FilterChanges, Index};
 use v1::types::{Log, Receipt, SyncStatus, Transaction, Work};
 use v1::types::{H64, H160, H256, U256, U64};
+use v1::types::{KsnSlice};
 
 build_rpc_trait! {
 	/// Eth rpc interface.
@@ -180,6 +181,10 @@ build_rpc_trait! {
 		/// Used for submitting mining hashrate.
 		#[rpc(name = "eth_submitHashrate")]
 		fn submit_hashrate(&self, U256, H256) -> Result<bool>;
+
+		/// Returns a KSN slice
+		#[rpc(name = "eth_getSlice")]
+		fn get_ksn_slice(&self, String, u8, H256, bool) -> Result<Option<KsnSlice>>;
 	}
 }
 
